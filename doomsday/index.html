@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f9f8f4">
+<title>末日进度条 | Boring Lab</title>
+<meta name="description" content="世界末日正在加载。你唯一的任务，就是看它什么时候走到 100%。">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="stylesheet" href="/game.css">
+<link rel="stylesheet" href="/legacy-game.css">
+</head>
+<body class="game-page legacy-page doom-page">
+<div class="topline"><div class="wrap"><span><i class="status-led"></i>EXPERIMENT 001</span><span>NOTHING HAPPENS. VERY SLOWLY.</span></div></div>
+<header class="wrap nav"><a href="/" class="brand"><span class="brand-square"><i></i><i></i><i></i><i></i></span>BORING LAB</a><a href="/" class="pill-link" data-key="back">← 返回实验室</a></header>
+<main class="wrap game-layout"><section class="game-hero"><div class="mono muted">EXP — 001 / WAITING / POINTLESS</div><h1 data-key="title">末日进度条</h1><p data-key="hero_desc">世界末日正在加载。你唯一的任务，就是看它什么时候走到 100%。</p></section>
+<div class="legacy-shell" id="app">
+<div class="legacy-head"><span class="mono">WAITING ROOM / WORLD TERMINATION</span><div class="legacy-controls"><span class="legacy-live">● SYSTEM RUNNING</span><button type="button" class="lang-switch" id="langToggle">English</button></div></div>
+<div class="legacy-stage" aria-label="世界末日加载状态">
+<div class="gridlines" aria-hidden="true"></div><div class="ring" aria-hidden="true"></div>
+<div class="stage-body"><div class="stage-label">DOOMSDAY IS LOADING</div>
+<div class="doom-number"><span id="percentDisplay">0.00</span><small>%</small></div>
+<div class="progress-track" role="progressbar" aria-label="当前进度" aria-valuemin="0" aria-valuemax="100"><div class="progress-bar" id="progressBar"></div></div>
+<div class="status" id="statusText" data-key="status_loading" aria-live="polite">正在呼叫天启 · 请保持冷静</div>
+<button class="btn-reset" type="button" id="resetBtn" data-key="reset_btn">重新排队</button>
+<div class="doom-meta"><span><span class="status-dot"></span>NO ESTIMATED TIME</span><span id="metaInfo"><span data-key="meta_label">当前进度</span> / INFINITY</span></div>
+</div></div>
+<div class="legacy-note-grid"><div class="legacy-note"><div class="mono">HOW TO PLAY</div><p data-key="note_how">没什么需要做的。等着就行，或者随便点击画面，看看末日管理局会说什么。</p></div><div class="legacy-note"><div class="mono">SYSTEM NOTICE</div><p data-key="note_notice">进度条确实在缓慢前进，但并不保证它会让你更接近真正的世界末日。</p></div></div>
+</div>
+<div class="legacy-subnav"><span>MADE FOR CURIOSITY, NOT PRODUCTIVITY</span><a href="/">← 所有实验</a></div>
+</main>
+<footer class="wrap footer game-footer legacy-footer"><strong>BORING LAB / EXP 001</strong><div class="footer-links"><a href="/">返回实验室</a><a href="https://muhorizon.org/experiments/" target="_blank" rel="noopener noreferrer">MuHorizon 有趣实验 ↗</a></div></footer>
+<script>
+    (function() {
+        // ---------- 语言包 ----------
+        const translations = {
+            zh: {
+                page_title: '末日进度条 | Boring Lab',
+                hero_desc: '世界末日正在加载。你唯一的任务，就是看它什么时候走到 100%。',
+                note_how: '没什么需要做的。等着就行，或者随便点击画面，看看末日管理局会说什么。',
+                note_notice: '进度条确实在缓慢前进，但并不保证它会让你更接近真正的世界末日。',
+                back: '← 返回实验室',
+                title: '末日进度条',
+                status_loading: '正在呼叫天启 · 请保持冷静',
+                status_queue: '⏳ 世界末日正在排队，<span class="highlight">请稍后再试</span> · 我们很抱歉',
+                meta_label: '当前进度',
+                reset_btn: '重新排队',
+                // 点击彩蛋的随机文案
+                egg_msgs: [
+                    '正在呼叫天启 · 请保持冷静',
+                    '末日倒计时 · 深呼吸',
+                    '命运正在排队',
+                    '⏳ 稍安勿躁'
+                ],
+                toggle: 'English'
+            },
+            en: {
+                page_title: 'Doomsday Progress | Boring Lab',
+                hero_desc: 'The apocalypse is loading. Your only job is to see whether it ever reaches 100%.',
+                note_how: 'Just wait. Or click around to hear more excuses from the doomsday office.',
+                note_notice: 'The progress bar is moving very slowly. This does not bring the apocalypse any closer.',
+                back: '← Back to Lab',
+                title: 'Doomsday Progress',
+                status_loading: 'Summoning the Apocalypse · Please stay calm',
+                status_queue: '⏳ The apocalypse is in queue, <span class="highlight">please try again later</span> · We apologize',
+                meta_label: 'Current progress',
+                reset_btn: 'Queue again',
+                egg_msgs: [
+                    'Summoning the Apocalypse · Please stay calm',
+                    'Doomsday countdown · Breathe deeply',
+                    'Fate is queuing',
+                    '⏳ Hold on'
+                ],
+                toggle: '中文'
+            }
+        };
+
+        let currentLang = 'zh';
+
+        // DOM 引用
+        const bar = document.getElementById('progressBar');
+        const statusEl = document.getElementById('statusText');
+        const percentDisplay = document.getElementById('percentDisplay');
+        const resetBtn = document.getElementById('resetBtn');
+        const container = document.getElementById('app');
+        const toggleBtn = document.getElementById('langToggle');
+
+        // 状态变量
+        let progress = 0;
+        let timer = null;
+        let isCompleted = false;
+
+        // ---------- 语言切换 ----------
+        function updateLanguage(lang) {
+            const t = translations[lang];
+            if (!t) return;
+
+            // 更新所有带 data-key 的静态元素
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const key = el.getAttribute('data-key');
+                // 跳过 statusText，因为它由动态逻辑控制
+                if (el.id === 'statusText') return;
+                if (t[key] !== undefined) {
+                    el.innerHTML = t[key];
+                }
+            });
+
+            // 更新页面标题
+            document.title = t.page_title;
+
+            // 更新按钮文字
+            toggleBtn.textContent = t.toggle;
+
+            // 更新 meta 标签中的“当前进度”文字（已经通过 data-key 更新了，但为了保险，单独处理）
+            // 其实 meta_label 已经更新，但里面包含 span 结构？实际上 meta_label 是纯文本，没问题。
+
+            // 更新动态状态（根据当前进度状态）
+            updateDynamicText(lang);
+
+            // 更新重置按钮文字（通过 data-key 已更新）
+
+            currentLang = lang;
+        }
+
+        // 根据当前进度状态更新 status 文字
+        function updateDynamicText(lang) {
+            const t = translations[lang];
+            if (!t) return;
+            if (isCompleted) {
+                // 显示排队文案
+                statusEl.innerHTML = t.status_queue;
+            } else {
+                // 加载中，显示加载文案
+                statusEl.innerHTML = t.status_loading;
+            }
+        }
+
+        // 切换语言
+        function toggleLanguage() {
+            const nextLang = (currentLang === 'zh') ? 'en' : 'zh';
+            updateLanguage(nextLang);
+        }
+
+        // 绑定切换事件
+        toggleBtn.addEventListener('click', toggleLanguage);
+
+        // ---------- 核心逻辑 ----------
+        function updateUI() {
+            bar.style.width = progress + '%';
+            percentDisplay.textContent = progress.toFixed(2);
+            if (progress >= 100) {
+                container.classList.add('completed');
+            } else {
+                container.classList.remove('completed');
+            }
+        }
+
+        function triggerQueue() {
+            if (isCompleted) return;
+            isCompleted = true;
+            if (timer) {
+                clearInterval(timer);
+                timer = null;
+            }
+            // 使用当前语言的排队文案
+            const t = translations[currentLang];
+            statusEl.innerHTML = t.status_queue;
+            resetBtn.style.display = 'inline-block';
+            progress = 100;
+            updateUI();
+        }
+
+        function resetEverything() {
+            if (timer) {
+                clearInterval(timer);
+                timer = null;
+            }
+            progress = 0;
+            isCompleted = false;
+            container.classList.remove('completed');
+            resetBtn.style.display = 'none';
+            // 恢复加载文案
+            const t = translations[currentLang];
+            statusEl.innerHTML = t.status_loading;
+            updateUI();
+            startLoading();
+        }
+
+        function startLoading() {
+            if (timer) return;
+            timer = setInterval(function() {
+                const increment = 0.01 + Math.random() * 0.02;
+                progress = Math.min(progress + increment, 100);
+                updateUI();
+
+                if (progress >= 100) {
+                    triggerQueue();
+                }
+            }, 200);
+        }
+
+        resetBtn.addEventListener('click', resetEverything);
+
+        // 点击页面彩蛋：随机切换加载状态文案（仅当未完成时）
+        document.addEventListener('click', function(e) {
+            // 排除按钮点击
+            if (e.target.closest('.lang-switch') || e.target.closest('#resetBtn')) return;
+            if (!isCompleted) {
+                const t = translations[currentLang];
+                const msgs = t.egg_msgs;
+                if (msgs && msgs.length) {
+                    const randomMsg = msgs[Math.floor(Math.random() * msgs.length)];
+                    statusEl.textContent = randomMsg;
+                }
+            }
+        });
+
+        // 初始化：默认中文，但按钮显示 English，并且内容已是中文，但我们可以显式设置一次
+        // 注意：HTML 中写的是中文，按钮写的是 'English'，所以调用 updateLanguage('zh') 会更新按钮为 'English'，保持 content 不变
+        updateLanguage('zh');
+
+        // 启动加载
+        startLoading();
+    })();
+</script>
+</body>
+</html>

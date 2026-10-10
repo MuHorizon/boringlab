@@ -1,0 +1,26 @@
+# macOS
+.DS_Store
+
+# Cloudflare 本地缓存
+.wrangler/
+
+# 环境变量和密钥
+.env
+.env.*
+!.env.example
+.dev.vars*
+.npmrc
+*.pem
+*.key
+*.p12
+
+# 依赖和构建文件
+node_modules/
+dist/
+coverage/
+*.log
+*.zip
+
+# 本地编辑器
+.idea/
+.vscode/

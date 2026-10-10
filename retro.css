@@ -1,0 +1,48 @@
+@import url('/game.css');
+.retro-shell{width:min(1060px,calc(100% - 36px));margin:0 auto;padding:27px 0 78px}.retro-intro{margin-bottom:20px}.retro-intro h1{font-size:clamp(31px,5vw,53px);letter-spacing:-.06em;line-height:1.16;margin:12px 0 9px}.retro-intro p{font-size:13px;color:#7b897b;line-height:1.8;max-width:700px}.retro-card{background:#eff2e9;border:1px solid #d6dfd0;border-radius:18px;overflow:hidden;box-shadow:0 22px 50px #3448370e}.retro-top{padding:13px clamp(13px,3vw,23px);display:flex;align-items:center;justify-content:space-between;gap:10px;border-bottom:1px solid #d7dfd2;background:#e8eee1}.retro-top .mono{color:#70866a}.retro-stats{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.retro-pill{font-size:11px;font-weight:800;background:#fffdf6;border:1px solid #d8dfd2;padding:7px 11px;border-radius:9px;font-variant-numeric:tabular-nums}.retro-pill strong{font-size:14px}.retro-body{padding:clamp(13px,3vw,25px);position:relative}.retro-btn{border:0;border-radius:10px;padding:11px 17px;font-size:12px;font-weight:850;background:#304436;color:white;transition:transform .12s,background .12s;touch-action:manipulation}.retro-btn:hover{background:#455d49}.retro-btn:active{transform:translateY(1px)}.retro-btn:disabled{opacity:.45;cursor:default}.retro-btn.ghost{background:#e0e8da;color:#3e5942}.retro-btn.ghost:hover{background:#d3e0cb}.retro-label{color:#829280;font-size:10px;font-weight:850;letter-spacing:.12em}.retro-helper{font-size:12px;color:#667866;line-height:1.75}.retro-message{min-height:42px;background:#fcfdf8;border:1px solid #d8e2d0;border-radius:10px;padding:11px 14px;font-size:12px;line-height:1.65;color:#455a47}.retro-message[data-tone="warn"]{background:#f7e7d9;border-color:#eccbaa;color:#80533e}.retro-message[data-tone="good"]{background:#e2f0d8;border-color:#b5d6aa;color:#386145}.retro-overlay{position:absolute;z-index:50;inset:0;background:#243329eb;color:white;display:flex;justify-content:center;align-items:center;text-align:center;padding:26px}.retro-overlay[hidden]{display:none}.retro-overlay .panel{max-width:410px}.retro-overlay h2{font-size:clamp(25px,4vw,37px);line-height:1.2;letter-spacing:-.04em;margin:12px 0}.retro-overlay p{font-size:13px;line-height:1.85;color:#d2dfd0;margin:10px 0 20px}.retro-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(235px,.63fr);gap:22px;align-items:start}.retro-panel{border:1px solid #d8e0d0;background:#fafaf5;border-radius:13px;padding:19px}.retro-controls{display:flex;flex-wrap:wrap;gap:9px;margin:15px 0}.retro-section-title{font-size:17px;letter-spacing:-.035em;margin:7px 0 12px}.retro-progress{width:100%;height:9px;background:#d4e2cc;border-radius:10px;overflow:hidden}.retro-progress>span{display:block;background:#83a86f;height:100%;width:0%;transition:width .3s}.retro-footer{padding:16px 20px;background:#e8ede4;border-top:1px solid #d6dfd0;color:#7d897b;font-size:11px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}.retro-mininav{display:flex;gap:16px;flex-wrap:wrap;margin-top:15px;color:#778b74;font-size:12px}.retro-mininav a{border-bottom:1px solid #9dac94}.retro-mininav a:hover{color:#334c36}.retro-fineprint{font-size:11px;color:#839183;line-height:1.8;margin-top:16px}
+@media(max-width:750px){.retro-grid{grid-template-columns:1fr}.retro-top{align-items:flex-start}.retro-stats{justify-content:flex-end}.retro-panel{padding:14px}.retro-shell{padding-top:20px}.retro-body{padding:12px}}
+
+/* Two focus-first games: compact framing keeps the actual controls in view. */
+.game-page.retro-focus .retro-shell{padding-top:12px;padding-bottom:42px}
+.game-page.retro-focus .retro-intro{margin-bottom:12px}
+.game-page.retro-focus .retro-intro .back{margin-bottom:8px}
+.game-page.retro-focus .retro-intro h1{font-size:clamp(26px,3.3vw,35px);margin:4px 0}
+.game-page.retro-focus .retro-intro p{font-size:12px;line-height:1.35}
+.game-page.retro-focus .retro-top{padding:9px 16px}
+.game-page.retro-focus .retro-body{padding:14px}
+@media(max-width:850px){
+ .game-page.retro-focus .topline{display:none}
+ .game-page.retro-focus .wrap{width:calc(100% - 22px)}
+ .game-page.retro-focus .nav{padding:9px 0}
+ .game-page.retro-focus .brand{font-size:16px}
+ .game-page.retro-focus .brand-square{width:26px;height:26px;gap:3px}
+ .game-page.retro-focus .pill-link{font-size:10px;padding:6px 10px}
+ .game-page.retro-focus .retro-shell{width:calc(100% - 16px);padding-top:7px;padding-bottom:25px}
+ .game-page.retro-focus .retro-intro{margin-bottom:7px}
+ .game-page.retro-focus .retro-intro .back,.game-page.retro-focus .retro-intro .mono,.game-page.retro-focus .retro-intro p{display:none}
+ .game-page.retro-focus .retro-intro h1{font-size:clamp(19px,4.7vw,25px);margin:0;line-height:1.3}
+ .game-page.retro-focus .retro-card{border-radius:12px}
+ .game-page.retro-focus .retro-top{padding:6px 9px;min-height:43px}
+ .game-page.retro-focus .retro-top>.mono{display:none}
+ .game-page.retro-focus .retro-top .retro-stats{width:100%;justify-content:space-between;gap:4px;flex-wrap:nowrap}
+ .game-page.retro-focus .retro-top .retro-pill{font-size:10px;padding:5px 7px;white-space:nowrap}
+ .game-page.retro-focus .retro-top .retro-pill strong{font-size:12px}
+ .game-page.retro-focus .retro-top .game-button{font-size:10px;padding:7px 8px;white-space:nowrap}
+ .game-page.retro-focus .retro-body{padding:7px}
+ .game-page.retro-focus .retro-footer{padding:8px 12px;font-size:9px}
+ .game-page.retro-focus .retro-mininav{margin-top:14px}
+ .game-page.retro-focus .retro-fineprint{margin-top:10px}
+}
+@media(max-width:350px){
+ .game-page.retro-focus .brand{font-size:14px}
+ .game-page.retro-focus .pill-link{padding:6px 8px}
+}
+
+/* On desktop, the game is the hero, not the introductory copy. */
+.game-page.retro-focus .topline{display:none}
+.game-page.retro-focus .nav{padding:10px 0}
+.game-page.retro-focus .retro-shell{padding-top:10px}
+.game-page.retro-focus .retro-intro{margin-bottom:10px}
+.game-page.retro-focus .retro-intro .back,.game-page.retro-focus .retro-intro .mono,.game-page.retro-focus .retro-intro p{display:none}
+.game-page.retro-focus .retro-intro h1{font-size:clamp(24px,2.7vw,31px);margin:0}
+@media(max-width:850px){.game-page.retro-focus .nav{padding:9px 0}.game-page.retro-focus .retro-shell{padding-top:7px}.game-page.retro-focus .retro-intro{margin-bottom:7px}.game-page.retro-focus .retro-intro h1{font-size:clamp(19px,4.7vw,25px)}}

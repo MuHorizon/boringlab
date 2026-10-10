@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f9f8f4">
+<title>滚轮测谎仪 | Boring Lab</title>
+<meta name="description" content="你滚鼠标时的节奏，是不是暴露了什么？来做一次完全不科学的心理实验。">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="stylesheet" href="/game.css">
+<link rel="stylesheet" href="/legacy-game.css">
+</head>
+<body class="game-page legacy-page lie-page">
+<div class="topline"><div class="wrap"><span><i class="status-led"></i>EXPERIMENT 002</span><span>YOUR SCROLL WHEEL KNOWS TOO MUCH.</span></div></div>
+<header class="wrap nav"><a href="/" class="brand"><span class="brand-square"><i></i><i></i><i></i><i></i></span>BORING LAB</a><a href="/" class="pill-link" data-key="back">← 返回实验室</a></header>
+<main class="wrap game-layout"><section class="game-hero"><div class="mono muted">EXP — 002 / SCROLL / PSEUDOSCIENCE</div><h1 data-key="title">滚轮测谎仪</h1><p data-key="hero_desc">你滚鼠标时的节奏，是不是暴露了什么？来做一次完全不科学的心理实验。</p></section>
+<div class="legacy-shell"><div class="legacy-head"><span class="mono">BEHAVIOR ANALYSIS / SCIENCE? MAYBE.</span><div class="legacy-controls"><span class="legacy-live">● SENSOR READY</span><button type="button" class="lang-switch" id="langToggle">English</button></div></div>
+<div class="legacy-stage" id="sensorStage" tabindex="0" role="region" aria-label="滚轮测谎检测区，用鼠标滚轮、手指滑动或方向键操作"><div class="gridlines" aria-hidden="true"></div>
+<div class="stage-body"><div class="stage-label" style="color:#9d7b69;margin-bottom:22px">SUBCONSCIOUS SIGNAL MONITOR</div>
+<div class="scanner-outer"><div class="scanner-core"><div class="sensor-icon">↕</div><strong>SCAN</strong><small>SCROLL TO BEGIN</small></div></div>
+<div class="instruction"><em data-key="instruction_em">向下滚动</em> <span data-key="instruction_text">以证明你是好人</span> <span class="scroll-indicator">↕</span></div>
+</div></div>
+<div class="result-area" id="resultArea"><div class="result-text" id="resultText"><span data-key="waiting">等待你的滚动信号...</span></div></div>
+<div class="stats"><span><span data-key="stat_scroll">滚动次数</span>：<span id="scrollCount">0</span></span><span><span data-key="stat_speed">平均速度</span>：<span id="avgSpeed">0</span> px/ms</span><span class="spacer"></span><button type="button" class="touch-wheel" id="simulateScroll" data-key="simulate_button">模拟滚动 ↕</button><button type="button" class="btn-retry" id="retryBtn" data-key="retry_btn">重新测谎</button></div>
+<div class="legacy-note-grid"><div class="legacy-note"><div class="mono">HOW TO PLAY</div><p data-key="note_how">把光标移到上方圆盘，连续滚动鼠标。手机可以在圆盘区域上下滑动，停下后等待结果。</p></div><div class="legacy-note"><div class="mono">A VERY SERIOUS DISCLAIMER</div><p data-key="note_notice">这只是荒谬的互动实验，不是科学测谎。分析结果完全不应用于判断真实人格或诚信。</p></div></div>
+</div>
+<div class="legacy-subnav"><span>MADE FOR CURIOSITY, NOT PRODUCTIVITY</span><a href="/">← 所有实验</a></div>
+</main>
+<footer class="wrap footer game-footer legacy-footer"><strong>BORING LAB / EXP 002</strong><div class="footer-links"><a href="/">返回实验室</a><a href="https://muhorizon.org/experiments/" target="_blank" rel="noopener noreferrer">MuHorizon 有趣实验 ↗</a></div></footer>
+<script>
+    (function() {
+        // ---------- 语言包 ----------
+        const translations = {
+            zh: {
+                page_title: '滚轮测谎仪 | Boring Lab',
+                hero_desc: '你滚鼠标时的节奏，是不是暴露了什么？来做一次完全不科学的心理实验。',
+                note_how: '把光标移到上方圆盘，连续滚动鼠标。手机可以在圆盘区域上下滑动，停下后等待结果。',
+                note_notice: '这只是荒谬的互动实验，不是科学测谎。分析结果完全不应用于判断真实人格或诚信。',
+                simulate_button: '模拟滚动 ↕',
+                back: '← 返回实验室',
+                title: '滚轮测谎仪',
+                subtitle: '基于鼠标滚轮微表情的 潜意识分析',
+                instruction_em: '向下滚动',
+                instruction_text: '以证明你是好人',
+                waiting: '等待你的滚动信号...',
+                analyzing: '🔍 正在分析您的滚动微表情',
+                no_scroll: '😅 您还没滚动呢，再试试吧',
+                reset_done: '重置完成，请重新滚动',
+                stat_scroll: '滚动次数',
+                stat_speed: '平均速度',
+                retry_btn: '🔄 重新测谎',
+                toggle: 'English',
+                // 结果分类 - 流畅组
+                verdict_smooth: [
+                    '您的滚动如丝绸般顺滑，内心坦荡，<span class="green">纯粹之人</span>。',
+                    '毫无犹豫，您是一个<span class="green">果断且正直</span>的灵魂。',
+                    '滚轮节奏完美，<span class="green">好人认证</span>通过。'
+                ],
+                // 结果分类 - 犹豫组
+                verdict_guilty: [
+                    '检测到明显的停顿与迟疑，您<span class="highlight">内心有愧</span>。',
+                    '您的滚动暴露了潜意识的<span class="highlight">焦虑</span>，是否有所隐瞒？',
+                    '节奏凌乱，<span class="highlight">您可能在说谎</span>。'
+                ],
+                // 结果分类 - 中间组
+                verdict_mid: [
+                    '中规中矩，您是个<span class="strong">普通人</span>，说不好好坏。',
+                    '您的滚动透露出<span class="strong">一丝犹豫</span>，但整体可控。',
+                    '看似平稳，但某些瞬间的停顿<span class="strong">出卖了您</span>。'
+                ],
+                // 详情后缀
+                detail_suffix: [
+                    '（CV={cv}，速度={speed}）',
+                    '（基于 {count} 次滚动分析）',
+                    '（置信度 {conf}%）'
+                ]
+            },
+            en: {
+                page_title: 'Scroll Lie Detector | Boring Lab',
+                hero_desc: 'Can the rhythm of your mouse wheel reveal a secret? Take this gloriously unscientific test.',
+                note_how: 'Scroll the mouse wheel over the circular sensor. On phones, swipe inside the sensor. Wait for the result after stopping.',
+                note_notice: 'A playful, pseudoscientific experiment. This is not a real lie detector and cannot assess honesty or personality.',
+                simulate_button: 'Simulate scroll ↕',
+                back: '← Back to Lab',
+                title: 'Scroll Lie Detector',
+                subtitle: 'Subconscious analysis based on mouse wheel micro-expressions',
+                instruction_em: 'Scroll down',
+                instruction_text: 'to prove you\'re a good person',
+                waiting: 'Waiting for your scroll signal...',
+                analyzing: '🔍 Analyzing your scroll micro-expressions',
+                no_scroll: '😅 You haven\'t scrolled yet, try again',
+                reset_done: 'Reset complete, please scroll again',
+                stat_scroll: 'Scrolls',
+                stat_speed: 'Avg Speed',
+                retry_btn: '🔄 Retry',
+                toggle: '中文',
+                verdict_smooth: [
+                    'Your scrolling is smooth as silk, pure of heart — <span class="green">a virtuous soul</span>.',
+                    'No hesitation, you are a <span class="green">decisive and honest</span> spirit.',
+                    'Perfect scroll rhythm, <span class="green">good person certified</span>.'
+                ],
+                verdict_guilty: [
+                    'Detected obvious pauses and hesitation — you <span class="highlight">have a guilty conscience</span>.',
+                    'Your scrolling reveals subconscious <span class="highlight">anxiety</span>, are you hiding something?',
+                    'Chaotic rhythm, <span class="highlight">you might be lying</span>.'
+                ],
+                verdict_mid: [
+                    'Average, you\'re a <span class="strong">normal person</span>, neither good nor bad.',
+                    'Your scrolling shows <span class="strong">a hint of hesitation</span>, but manageable.',
+                    'Seems stable, but certain pauses <span class="strong">give you away</span>.'
+                ],
+                detail_suffix: [
+                    '(CV={cv}, speed={speed})',
+                    '(based on {count} scrolls)',
+                    '({conf}% confidence)'
+                ]
+            }
+        };
+
+        let currentLang = 'zh';
+
+        // DOM 引用
+        const resultText = document.getElementById('resultText');
+        const scrollCountSpan = document.getElementById('scrollCount');
+        const avgSpeedSpan = document.getElementById('avgSpeed');
+        const retryBtn = document.getElementById('retryBtn');
+        const toggleBtn = document.getElementById('langToggle');
+
+        // 数据
+        let scrollEvents = [];
+        let isAnalyzing = false;
+        let analysisTimer = null;
+        let scrollCounter = 0;
+
+        // ---------- 语言切换 ----------
+        function updateLanguage(lang) {
+            const t = translations[lang];
+            if (!t) return;
+
+            // 更新所有带 data-key 的静态元素
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const key = el.getAttribute('data-key');
+                // 跳过 resultText，它由动态逻辑控制
+                if (el.id === 'resultText') return;
+                if (t[key] !== undefined) {
+                    el.innerHTML = t[key];
+                }
+            });
+
+            // 更新页面标题
+            document.title = t.page_title;
+
+            // 更新按钮文字
+            toggleBtn.textContent = t.toggle;
+
+            // 更新 resultText 中可能显示的内容（如果当前没有分析结果，显示 waiting）
+            // 如果有动态结果，最好保持，但这里简单处理：如果 resultText 里包含等待、分析、无滚动等关键词，替换
+            const currentText = resultText.textContent;
+            // 如果当前显示的是等待、分析中、无滚动、重置完成等，用新语言替换
+            // 但我们没法精准判断，简单策略：如果当前不是分析结果（没有彩色标签），就替换为 waiting
+            // 但分析结果有 <span> 标签，我们用 innerHTML 包含标签来判断
+            const html = resultText.innerHTML;
+            // 如果包含 'green' 或 'highlight' 或 'strong' 类，说明是分析结果，保留
+            if (html.includes('green') || html.includes('highlight') || html.includes('strong')) {
+                // 这是分析结果，不覆盖（但语言切换时，结果内容应该用新语言重新生成？）
+                // 但分析结果是基于数据生成的，切换到新语言后最好重新生成一次
+                // 但由于语言切换不会触发重新分析，我们可以在切换语言时保持结果不变
+                // 更合理的做法：如果当前有结果显示，保留结果，但不更改语言
+                // 或者我们可以在切换语言时重新生成一次结果（如果有数据的话）
+                // 这里我们选择：如果有数据且不是分析中，重新生成结果
+                if (scrollEvents.length > 0 && !isAnalyzing) {
+                    // 重新生成结果，使用新语言
+                    performAnalysis(true);
+                }
+                // 否则保留
+            } else {
+                // 不是分析结果，替换为新语言的对应文字
+                // 判断是 waiting 还是 no_scroll 还是 analyzing 还是 reset_done
+                if (html.includes('等待') || html.includes('Waiting')) {
+                    resultText.innerHTML = `<span style="color:#6a7a94;" data-key="waiting">${t.waiting}</span>`;
+                } else if (html.includes('还没滚动') || html.includes('haven\'t scrolled')) {
+                    resultText.innerHTML = t.no_scroll;
+                } else if (html.includes('分析') || html.includes('Analyzing')) {
+                    resultText.innerHTML = t.analyzing + ' <span class="scroll-indicator">·</span>';
+                } else if (html.includes('重置') || html.includes('Reset')) {
+                    resultText.innerHTML = t.reset_done;
+                } else {
+                    // 默认等待
+                    resultText.innerHTML = `<span style="color:#6a7a94;" data-key="waiting">${t.waiting}</span>`;
+                }
+            }
+
+            currentLang = lang;
+        }
+
+        // 切换语言
+        function toggleLanguage() {
+            const nextLang = (currentLang === 'zh') ? 'en' : 'zh';
+            updateLanguage(nextLang);
+        }
+
+        toggleBtn.addEventListener('click', toggleLanguage);
+
+        // ---------- 核心分析逻辑 ----------
+        function onWheel(e) {
+            e.preventDefault();
+            if (isAnalyzing) return;
+
+            const now = performance.now();
+            const delta = e.deltaY;
+            scrollEvents.push({ delta, time: now });
+            scrollCounter++;
+            scrollCountSpan.textContent = scrollCounter;
+
+            if (analysisTimer) {
+                clearTimeout(analysisTimer);
+                analysisTimer = null;
+            }
+
+            const t = translations[currentLang];
+            resultText.innerHTML = t.analyzing + ' <span class="scroll-indicator">·</span>';
+
+            analysisTimer = setTimeout(() => {
+                performAnalysis(false);
+            }, 1500);
+        }
+
+        function performAnalysis(silent) {
+            const t = translations[currentLang];
+
+            if (scrollEvents.length === 0) {
+                resultText.innerHTML = t.no_scroll;
+                return;
+            }
+
+            isAnalyzing = true;
+
+            const totalDelta = scrollEvents.reduce((sum, e) => sum + Math.abs(e.delta), 0);
+            const duration = scrollEvents.length > 1 ? 
+                (scrollEvents[scrollEvents.length-1].time - scrollEvents[0].time) : 100;
+            const avgSpeed = totalDelta / duration;
+
+            const intervals = [];
+            for (let i = 1; i < scrollEvents.length; i++) {
+                intervals.push(scrollEvents[i].time - scrollEvents[i-1].time);
+            }
+            let cv = 0;
+            if (intervals.length > 1) {
+                const mean = intervals.reduce((a,b) => a+b, 0) / intervals.length;
+                const variance = intervals.reduce((s, val) => s + (val - mean)**2, 0) / intervals.length;
+                const std = Math.sqrt(variance);
+                cv = mean !== 0 ? std / mean : 0;
+            } else {
+                cv = 0.3;
+            }
+
+            avgSpeedSpan.textContent = avgSpeed.toFixed(1);
+
+            let verdict = '';
+            let detail = '';
+
+            // 根据 cv 和速度选择结果
+            if (cv < 0.25 && avgSpeed > 0.5) {
+                const msgs = t.verdict_smooth;
+                verdict = msgs[Math.floor(Math.random() * msgs.length)];
+            } else if (cv > 0.6 || avgSpeed < 0.2) {
+                const msgs = t.verdict_guilty;
+                verdict = msgs[Math.floor(Math.random() * msgs.length)];
+            } else {
+                const msgs = t.verdict_mid;
+                verdict = msgs[Math.floor(Math.random() * msgs.length)];
+            }
+
+            // 详情后缀
+            const suffixes = t.detail_suffix;
+            const suffixTemplate = suffixes[Math.floor(Math.random() * suffixes.length)];
+            const conf = (60 + Math.random() * 30).toFixed(0);
+            let detailText = suffixTemplate
+                .replace('{cv}', cv.toFixed(2))
+                .replace('{speed}', avgSpeed.toFixed(1))
+                .replace('{count}', scrollEvents.length)
+                .replace('{conf}', conf);
+
+            resultText.innerHTML = `${verdict} <span style="color:#5a6a84;font-size:0.9rem;">${detailText}</span>`;
+
+            isAnalyzing = false;
+            analysisTimer = null;
+        }
+
+        function resetAll() {
+            scrollEvents = [];
+            scrollCounter = 0;
+            scrollCountSpan.textContent = '0';
+            avgSpeedSpan.textContent = '0';
+            const t = translations[currentLang];
+            resultText.innerHTML = t.reset_done;
+            if (analysisTimer) {
+                clearTimeout(analysisTimer);
+                analysisTimer = null;
+            }
+            isAnalyzing = false;
+        }
+
+        // 绑定事件
+        const sensor = document.getElementById('sensorStage');
+        sensor.addEventListener('wheel', onWheel, { passive: false });
+        // 手机端在检测区域滑动也能完成检测；保持原有的速度/节奏判定。
+        let lastTouch = null;
+        sensor.addEventListener('touchstart', e => { lastTouch = e.touches[0] ? { y:e.touches[0].clientY, time:performance.now() } : null; }, { passive:true });
+        sensor.addEventListener('touchmove', e => {
+            if (!lastTouch || !e.touches[0]) return;
+            e.preventDefault();
+            const y = e.touches[0].clientY, dy = lastTouch.y - y;
+            if (Math.abs(dy) >= 3) { onWheel({preventDefault(){}, deltaY:dy}); lastTouch={y,time:performance.now()}; }
+        }, {passive:false});
+        sensor.addEventListener('touchend', () => {lastTouch=null;});
+        // 对没有滚轮的设备提供替代输入，不改变结果判定规则。
+        document.getElementById('simulateScroll').addEventListener('click',()=>onWheel({preventDefault(){},deltaY:78}));
+        sensor.addEventListener('keydown',e=>{if(e.key==='ArrowDown'||e.key==='ArrowUp'||e.key===' '){e.preventDefault();onWheel({preventDefault(){},deltaY:e.key==='ArrowUp'?-80:80})}});
+        retryBtn.addEventListener('click', resetAll);
+
+        window.addEventListener('beforeunload', function() {
+            sensor.removeEventListener('wheel', onWheel);
+        });
+
+        // ---------- 初始化 ----------
+        // 默认中文，按钮显示 English
+        updateLanguage('zh');
+    })();
+</script>
+</body>
+</html>

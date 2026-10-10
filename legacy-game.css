@@ -1,0 +1,94 @@
+/* Two original experiments updated to match Boring Lab's shared game pages. */
+.legacy-page .game-hero{padding-top:31px;padding-bottom:24px}
+.legacy-page .game-hero p{max-width:700px}
+.legacy-page .game-layout{max-width:940px}
+.legacy-page .legacy-shell{background:#f0f2e9;border:1px solid #d8dfd2;border-radius:18px;box-shadow:0 22px 60px #354c3510;overflow:hidden}
+.legacy-page .legacy-head{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:59px;padding:12px 21px;background:#e9eee3;border-bottom:1px solid #d8dfd2}
+.legacy-page .legacy-head .mono{color:#6e806c}
+.legacy-page .legacy-controls{display:flex;align-items:center;gap:9px}
+.legacy-page .lang-switch{background:#fbfcf7;color:#526650;border:1px solid #cbd7c7;padding:7px 11px;border-radius:8px;font-size:11px;font-weight:800;white-space:nowrap;transition:background .2s}
+.legacy-page .lang-switch:hover{background:#dfead5}
+.legacy-page .legacy-live{background:#dcead1;color:#4e7955;border-radius:50px;font-size:9px;font-weight:850;letter-spacing:.08em;padding:7px 10px;white-space:nowrap}
+.legacy-page .legacy-stage{position:relative;min-height:405px;margin:18px;border-radius:13px;overflow:hidden;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:44px 25px 43px}
+.legacy-page .legacy-stage:after{pointer-events:none;content:"";position:absolute;inset:0;border:1px solid #ffffff1c;border-radius:inherit}
+.legacy-page .stage-body{width:100%;position:relative;z-index:2}
+.legacy-page .stage-label{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:10px;letter-spacing:.2em;font-weight:800;text-transform:uppercase}
+.legacy-page .legacy-note-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin:14px 18px 19px}
+.legacy-page .legacy-note{background:#fafaf5;border:1px solid #d9e0d5;border-radius:10px;padding:14px 17px;min-height:88px}
+.legacy-page .legacy-note .mono{color:#778e75}
+.legacy-page .legacy-note p{margin:7px 0 0;color:#6e796f;font-size:12px;line-height:1.8}
+.legacy-page .legacy-footer{margin-top:0}
+.legacy-page .legacy-subnav{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:16px;font-size:11px;color:#809081}
+.legacy-page .legacy-subnav a{text-decoration:underline;text-underline-offset:3px}
+.legacy-page .legacy-subnav a:hover{color:#293c30}
+/* Doomsday control terminal. */
+.legacy-page.doom-page .legacy-stage{background:#25352c;color:#e6eddc;border:1px solid #3c5541}
+.doom-page .legacy-stage .gridlines{position:absolute;inset:0;background-image:linear-gradient(#90ab8c0b 1px,transparent 1px),linear-gradient(90deg,#90ab8c0b 1px,transparent 1px);background-size:32px 32px;mask-image:linear-gradient(135deg,#0009,transparent 85%);pointer-events:none}
+.doom-page .legacy-stage .ring{position:absolute;width:340px;height:340px;border-radius:50%;border:1px dashed #a1bba044;transform:rotate(-15deg);pointer-events:none;box-shadow:0 0 0 58px #ffffff05,0 0 0 116px #ffffff03}
+.doom-page .legacy-stage .ring:after{content:"";position:absolute;top:23px;right:51px;width:8px;height:8px;border-radius:50%;background:#c7e19a;box-shadow:0 0 15px #b5d99f99}
+.doom-page .stage-label{color:#b6cfae}
+.doom-page .doom-number{font-size:clamp(76px,12vw,140px);font-weight:920;line-height:1.16;letter-spacing:-.085em;font-variant-numeric:tabular-nums;margin:12px auto 17px;color:#eaf2db;text-shadow:0 8px 30px #13221a90}
+.doom-page .doom-number small{font-size:.34em;letter-spacing:-.04em;color:#bcd5ad;vertical-align:17%;margin-left:8px}
+.doom-page .progress-track{height:14px;background:#455b49;border:1px solid #647964;border-radius:7px;max-width:570px;margin:auto;overflow:hidden;position:relative}
+.doom-page .progress-bar{height:100%;width:0;background:repeating-linear-gradient(115deg,#a5c989 0 14px,#c1dea3 14px 28px);border-radius:6px;transition:width .25s linear}
+.doom-page .status{font-size:clamp(13px,2vw,17px);font-weight:600;min-height:52px;line-height:1.7;color:#d3ddcc;margin:23px 0 8px}
+.doom-page .highlight{color:#dbeca8;font-weight:850}
+.doom-page .doom-meta{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:19px auto 0;max-width:570px;font-size:10px;letter-spacing:.08em;color:#afc2a9}
+.doom-page .doom-meta .status-dot{width:7px;height:7px;background:#c4dd96;border-radius:50%;display:inline-block;margin-right:6px;animation:legacy-blink 2s infinite}
+.doom-page .btn-reset{display:none;border:1px solid #a0b99a;background:#d5e9bf;color:#263f2c;padding:10px 21px;border-radius:9px;font-size:12px;font-weight:900;margin:11px auto 0}
+.doom-page .btn-reset:hover{background:#eff8df}
+.doom-page .completed .legacy-stage{background:#3b3130;border-color:#9f7870}
+.doom-page .completed .progress-bar{background:#e6a292}
+.doom-page .completed .doom-number{color:#f5d5bc}
+.doom-page .completed .legacy-live{color:#854e44;background:#f0d9ca}
+/* Lie detector: scroll instrument on a contained sensor, not on the whole page. */
+.legacy-page.lie-page .legacy-stage{background:#eee6df;border:1px solid #e3d4ca;min-height:460px;color:#593f36;cursor:ns-resize;touch-action:none;outline-offset:4px}
+.lie-page .legacy-stage .gridlines{position:absolute;inset:0;background-image:radial-gradient(#b6a49672 1px,transparent 1px);background-size:20px 20px;opacity:.37;pointer-events:none}
+.lie-page .scanner-outer{width:clamp(210px,30vw,260px);height:clamp(210px,30vw,260px);border-radius:50%;display:grid;place-items:center;margin:0 auto 21px;position:relative;background:conic-gradient(#ab806b 0 285deg,#d2c4b7 285deg 360deg);box-shadow:0 0 0 12px #fff9f244,0 16px 40px #916c5318}
+.lie-page .scanner-outer:before{content:"";position:absolute;inset:13px;background:#faf7f1;border-radius:50%;box-shadow:inset 0 0 0 1px #ddcfc0}
+.lie-page .scanner-outer:after{content:"";position:absolute;inset:-18px;border:1px dashed #ba9a89;border-radius:50%;opacity:.55;animation:legacy-rotate 40s linear infinite;pointer-events:none}
+.lie-page .scanner-core{position:relative;z-index:2;text-align:center}
+.lie-page .scanner-core .sensor-icon{display:flex;margin:0 auto 8px;width:42px;height:42px;align-items:center;justify-content:center;border:1px solid #d4b8a7;border-radius:50%;color:#987360;font-size:22px}
+.lie-page .scanner-core strong{font-size:41px;line-height:1.1;font-weight:950;letter-spacing:-.05em;display:block;color:#604c40;font-variant-numeric:tabular-nums}
+.lie-page .scanner-core small{font-size:10px;letter-spacing:.14em;color:#a58a7b;font-weight:800}
+.lie-page .instruction{border:1px solid #dac9bd;background:#fcf7f1;color:#6d5347;display:inline-block;padding:10px 18px;border-radius:30px;font-weight:750;font-size:13px;line-height:1.7}
+.lie-page .instruction em{font-style:normal;color:#a66c50;font-weight:950}
+.lie-page .result-area{border:1px solid #e0d5cb;background:#fbfaf6;border-radius:12px;padding:20px 21px;text-align:center;margin:0 18px 14px;min-height:110px;display:flex;align-items:center;justify-content:center}
+.lie-page .result-text{color:#776b61;font-size:14px;line-height:1.8;font-weight:650;max-width:680px}
+.lie-page .result-text .strong{color:#a9805b;font-weight:900}
+.lie-page .result-text .highlight{color:#b56d5f;font-weight:900}
+.lie-page .result-text .green{color:#598359;font-weight:900}
+.lie-page .result-text [style]{color:#9c8e81!important;font-size:11px!important}
+.lie-page .stats{display:flex;justify-content:flex-start;flex-wrap:wrap;align-items:center;gap:10px;margin:0 18px 18px}
+.lie-page .stats>span{display:inline-flex;align-items:center;gap:5px;white-space:nowrap;background:#fafaf5;border:1px solid #dbe2d6;padding:9px 13px;font-size:12px;color:#607461;border-radius:8px;font-weight:700}
+.lie-page .stats span span[id]{font-variant-numeric:tabular-nums;font-weight:950;color:#334b37}
+.lie-page .stats .spacer{flex:1;border:0;background:transparent;padding:0}
+.lie-page .btn-retry{color:#eff7eb;background:#304635;border:0;border-radius:9px;padding:11px 17px;font-size:12px;font-weight:850}
+.lie-page .btn-retry:hover{background:#4a694e}
+.lie-page .touch-wheel{color:#566c58;background:#ecf0e6;border:1px solid #d3ddcf;border-radius:9px;padding:10px 14px;font-size:12px;font-weight:800;display:none}
+.lie-page .touch-wheel:hover{background:#e0ebd6}
+.lie-page .scroll-indicator{display:inline-block;animation:legacy-blink 1s infinite}
+@keyframes legacy-blink{50%{opacity:.25}}
+@keyframes legacy-rotate{to{transform:rotate(360deg)}}
+@media(max-width:680px){
+.legacy-page .legacy-head{padding:12px 13px;min-height:54px}
+.legacy-page .legacy-live{font-size:8px;padding:6px 8px}
+.legacy-page .legacy-stage{margin:10px;min-height:380px;padding:27px 14px}
+.legacy-page .legacy-note-grid{margin:10px 10px 14px;grid-template-columns:1fr}
+.legacy-page .legacy-note{min-height:auto;padding:12px 14px}
+.legacy-page .legacy-note p{margin-top:4px}
+.doom-page .legacy-stage .ring{width:250px;height:250px}
+.doom-page .doom-number{font-size:clamp(65px,16vw,103px);margin-top:18px}
+.doom-page .doom-meta{font-size:9px}
+.lie-page .legacy-stage{min-height:380px}
+.lie-page .scanner-outer{width:200px;height:200px;margin-bottom:20px}
+.lie-page .scanner-core strong{font-size:36px}
+.lie-page .instruction{font-size:12px;padding:9px 12px}
+.lie-page .result-area{padding:14px;margin:0 10px 10px;min-height:100px}
+.lie-page .stats{margin:0 10px 12px}
+.lie-page .stats>span{font-size:10px;padding:8px}
+.lie-page .stats .spacer{display:none}
+.lie-page .btn-retry{flex:1 1 43%;min-width:125px;white-space:nowrap;text-align:center}
+.lie-page .touch-wheel{display:inline-block;flex:1 1 43%;min-width:125px;white-space:nowrap;text-align:center}
+}
+@media(prefers-reduced-motion:reduce){.lie-page .scanner-outer:after{animation:none}.doom-page .doom-meta .status-dot,.lie-page .scroll-indicator{animation:none}}
