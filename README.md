@@ -1,58 +1,71 @@
-# Boring Lab / MuHorizon
+# Boring Lab · MuHorizon
 
-纯静态网页项目，无构建步骤、无 npm 依赖；保留原有 Cloudflare Workers 静态资源配置 `wrangler.jsonc`。
+**一些有趣的网页实验、小游戏和独立项目。** 这里是 MuHorizon 的项目入口之一，欢迎直接打开网站体验。
 
-## 内容
+*A small collection of web games, experiments, and independent projects. Explore the sites below — no installation required.*
 
-- `/`：Boring Lab 首页（新版布局，中文/英文切换）
-- `/doomsday/`：末日进度条（保留原玩法与双语，按新版品牌视觉重做内页）
-- `/lie-detector/`：滚轮测谎仪（保留原玩法与双语，按新版品牌视觉重做内页）
-- `/needle/`：十万根草里找一根针（100,000 根草 Canvas 场景，缩放/平移/点击检测/提示）
-- `/boss/`：一分钟当老板（60 秒经营，7 次随机事件，补货/招人/定价）
-- `/clean/`：擦干净它（手指/鼠标擦洗，进度计算，三种藏品，通关/金币/工具升级）
-- `/future-letter/`：365 天后的信（本地信件封存、倒计时、到期开启、导出/导入备份、演示信）
+## 网站与项目 · Websites & Projects
 
-## 本地开发
+### 01 · Boring Lab — 网页小游戏实验室
 
-在 `my-fun-site/` 根目录运行：
+为好奇心做的小作品：上课传纸条、老手机打字、拯救老电脑，以及各种奇怪但能玩的浏览器实验。无需下载或注册，打开网页即可体验。
 
-```bash
-python3 -m http.server 8000
-```
+*Playful browser games and interactive experiments, built just for fun.*
 
-浏览器打开 `http://localhost:8000/`。也可以用任意静态 HTTP 服务。
+**访问网站 / Visit:** https://boringlab.muhorizon.org/
 
-## 线上部署
+### 02 · MuHorizon — 开发与技术主站
 
-项目原本配置的是 Cloudflare Workers 静态资源托管：`wrangler.jsonc` 中 `assets.directory` 指向当前目录。保持现有的 Cloudflare 账户和域名绑定，进入本目录运行：
+介绍短剧系统、短剧小程序与海外 TikTok Minis Drama 解决方案，同时分享产品开发、技术实践和行业观察。
 
-```bash
-npx wrangler deploy
-```
+*Software development, short-drama platform solutions, technical articles, and product insights.*
 
-请先在测试/预览环境验证全部九个游戏路径，再发布至正式域名 `boringlab.muhorizon.org`。注意：解压后应保留 `my-fun-site/` 内的所有文件及四个新游戏文件夹，不能只上传 `index.html`。
+**访问网站 / Visit:** https://muhorizon.org/
 
-## 数据与兼容性
+### 03 · 有趣实验 — 项目合集
 
-- 四个新增实验均在浏览器中运行，不依赖第三方 API。
-- 「365 天后的信」只用浏览器 `localStorage`：不发送信件到服务器，也不跨设备同步；清理浏览器数据会丢失信件。导出的备份 JSON 为**明文**，必须妥善保存。
-- 信件的开启日期依赖本机时间，不是不可篡改的时间锁。真正支持长期、跨设备保管，需要另行开发服务端和账号/加密方案。
-- 建议使用现代 Chrome/Safari/Edge 浏览器。游戏画面支持鼠标与触屏。
+MuHorizon 的实验项目导航页，集中展示小游戏、在线工具及其他有趣的独立作品，方便从一个地方发现更多项目。
 
-## 两个早期实验的新版页面
+*A directory of experiments and small projects across MuHorizon.*
 
-- `/doomsday/` 和 `/lie-detector/` 已统一新版导航、编号、页面宽度、卡片、按钮、页脚和响应式样式。核心游戏 JS 仍延续原版本。
-- 测谎仪现仅在检测区域捕获滚轮，正常页面滚动不会被劫持；手机支持触摸滑动/模拟滚动按钮，键盘支持 ↑↓/空格。
-- 这两个页面共享 `legacy-game.css`，与其他页面共同使用 `game.css` 和 `site.css`。部署时不要漏掉此 CSS 文件。
+**访问网站 / Visit:** https://muhorizon.org/experiments/
 
-## 2026-10-09：新增「旧时光实验」系列
+### 04 · MuHorizon Tools — 在线工具
 
-首页新增三个正式可玩作品（不是占位卡片），沿用首页与各游戏统一的米白/深绿视觉：
+轻量级网页工具集合，面向日常的小需求，尽量做到打开即用，不需要安装软件。
 
-- `/paper-note/`：上课传纸条。5×5 教室、老师周期性巡视、传递路径、障碍、限时、失败判定、3 关。
-- `/old-phone/`：老手机打字挑战。九宫格多次按键、90 秒限时、5 条短信、连续相同字母智能输入、自动确认、键盘操作、最佳成绩存储。
-- `/old-computer/`：救救我的老电脑。限时打字、随机报错弹窗、稳定性下降、三个难度、Ctrl+S 保存、手机按钮操作。
+*Lightweight browser-based utilities for everyday tasks.*
 
-新增样式为根目录 `/retro.css`，三个新游戏是纯 HTML/CSS/JS，保持原项目零构建依赖、零 API 的部署方式。原有六个游戏地址、文件、行为保持不变。
+**访问网站 / Visit:** https://tools.muhorizon.org/
 
-**注意：** 打字游戏的连续字母采用与挑战目标关联的引导式九宫格算法，不是完整传统 T9 输入法；老电脑上的“文件保存”只是游戏里的成功条件，不会保存真实文档；纸条小游戏的老师巡逻规则是游戏设计，不是物理模拟。
+### 05 · Dream — 梦境探索
+
+围绕梦境与解梦主题的独立网站，提供查找和了解梦境含义的入口。
+
+*A separate project for exploring dreams and their meanings.*
+
+**访问网站 / Visit:** https://dream.muhorizon.org/
+
+## Boring Lab · 直接试玩
+
+| 游戏 / Game | 在线体验 / Play |
+| --- | --- |
+| 末日进度条 · Doomsday Progress | [开始体验](https://boringlab.muhorizon.org/doomsday/) |
+| 滚轮测谎仪 · Lie Detector | [开始体验](https://boringlab.muhorizon.org/lie-detector/) |
+| 十万根草里找一根针 · Find the Needle | [开始体验](https://boringlab.muhorizon.org/needle/) |
+| 一分钟当老板 · One-Minute Boss | [开始体验](https://boringlab.muhorizon.org/boss/) |
+| 擦干净它 · Clean It | [开始体验](https://boringlab.muhorizon.org/clean/) |
+| 365 天后的信 · Future Letter | [开始体验](https://boringlab.muhorizon.org/future-letter/) |
+| 上课传纸条 · Pass the Note | [开始体验](https://boringlab.muhorizon.org/paper-note/) |
+| 老手机打字挑战 · Old Phone | [开始体验](https://boringlab.muhorizon.org/old-phone/) |
+| 救救我的老电脑 · Old Computer | [开始体验](https://boringlab.muhorizon.org/old-computer/) |
+
+## 关于本仓库 · About This Repository
+
+本仓库包含 **Boring Lab** 的静态网页源码（HTML / CSS / JavaScript）。上面列出的其他网站是关联的独立项目，**不包含在本仓库中**。
+
+This repository contains the static source code for **Boring Lab**. The other linked websites are separate projects and are not included in this repository.
+
+- 本地预览 / Local preview: `python3 -m http.server 8000`
+- 在线网站 / Live site: https://boringlab.muhorizon.org/
+- 项目主页 / Main site: https://muhorizon.org/
