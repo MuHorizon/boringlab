@@ -1,0 +1,103 @@
+/* Boring Lab native game-page layout for the four interactive experiments.
+   Keeps the original game graphics and logic intact while using the same page
+   hierarchy as /clean/, /boss/, /needle/ and other existing experiments. */
+body.four-game-page{height:auto;min-height:100vh;display:block;overflow:visible;background:var(--bg);color:var(--ink)}
+body.four-game-page .nav{padding:22px 0;border-bottom:1px solid var(--line)}
+body.four-game-page .topline{display:block}
+.four-game-layout{max-width:960px;padding-bottom:24px}
+.four-game-layout .game-hero{padding:30px 0 24px}
+.four-game-layout .game-hero h1{font-size:clamp(34px,5vw,54px);margin:10px 0 9px;line-height:1.15}
+.four-game-layout .game-hero p{max-width:780px;font-size:13px;line-height:1.8}
+.four-game-card{background:#f0f2e9;border:1px solid #d8dfd2;border-radius:18px;overflow:hidden;box-shadow:0 22px 60px #354c3510}
+.four-game-card .play-head{padding:15px 19px;background:#e9eee3}
+.four-game-card .play-head .mono{font-size:10px;color:#72866b}
+.four-game-canvas{background:#f0f2e9;padding:21px 24px 24px;display:flex;justify-content:center}
+.four-game-page .mini-device{max-width:690px;width:100%;height:790px;max-height:none;min-height:0;box-shadow:0 12px 29px #18262916;border-radius:13px;border:1px solid var(--edge);flex:0 1 auto}
+.four-game-page .mini-top{padding:16px 19px 13px}
+.four-game-page .mini-heading h1{font-size:21px;line-height:1.2}
+.four-game-page .mini-stage{min-height:0}
+.four-game-page .mini-bottom{padding:13px 15px 15px}
+.four-game-page .mini-message{font-size:12px}
+.four-game-page .mini-badge{font-size:11px}
+.four-game-page .mini-actions button{font-size:12px;padding:12px}
+.four-game-details{align-items:center;margin:14px 0 0;font-size:12px}
+.four-game-details .mono{color:#899887;font-size:10px}
+.four-game-page .game-footer{padding:27px 0 32px}
+/* Give larger drawing surfaces to the games without distorting their internal grids. */
+.four-tower-balance .mini-device{max-width:590px;height:810px}
+.four-elevator .mini-device{max-width:600px;height:840px}
+.four-light-city .mini-device{max-width:670px;height:850px}
+.four-tiny-room .mini-device{max-width:590px;height:850px}
+.four-tower-balance #tower-device .mini-stage{margin:0 14px;border-radius:10px}
+.four-elevator .elevator-stage{margin:0 17px}
+.four-light-city #city-device .mini-stage{flex-basis:30%;min-height:170px}
+.four-light-city #city-device .city-board{width:min(100%,440px);max-height:440px;aspect-ratio:1;flex:none;margin:10px auto}
+.four-light-city #city-device .city-controls{justify-content:space-between}
+.four-light-city #city-device .city-tile{border-radius:9px}
+.four-tiny-room #tiny-device .tiny-monitor{margin:0 16px}
+.four-tiny-room #tiny-device .tiny-stats{padding:0 16px 11px}
+.four-tiny-room #tiny-device .tiny-actions{padding:0 16px 16px}
+.four-tiny-room #tiny-device .tiny-actions button{padding:11px 8px}
+@media(max-width:680px){
+ body.four-game-page .topline{display:block}
+ body.four-game-page .nav{padding:15px 0}
+ .four-game-layout .game-hero{padding:23px 0 19px}
+ .four-game-layout .game-hero h1{font-size:35px}
+ .four-game-layout .game-hero p{font-size:12px}
+ .four-game-card .play-head{padding:11px 12px;gap:8px}
+ .four-game-card .play-head .mono{font-size:9px;letter-spacing:.04em;max-width:48%;line-height:1.5}
+ .four-game-card .stat-chip{font-size:10px;padding:6px 8px;line-height:1.4}
+ .four-game-canvas{padding:10px}
+ .four-game-page .mini-device{height:760px;width:100%;border-radius:11px}
+ .four-game-page .mini-top{padding:13px 13px 11px}
+ .four-game-page .mini-heading h1{font-size:19px}
+ .four-game-page .mini-bottom{padding:10px 11px 12px}
+ .four-game-page .mini-message{font-size:11px}
+ .four-game-page .game-footer{padding-top:22px}
+ .four-tower-balance .mini-device{height:775px}
+ .four-elevator .mini-device{height:785px}
+ .four-light-city .mini-device{height:820px}
+ .four-tiny-room .mini-device{height:790px}
+ .four-light-city #city-device .mini-stage{flex-basis:28%}
+ .four-light-city #city-device .city-board{width:min(100%,390px);max-height:none;min-height:0;aspect-ratio:1;margin:8px auto}
+ .four-tiny-room #tiny-device .tiny-monitor{margin:0 11px}
+ .four-tiny-room #tiny-device .tiny-stats{padding:0 11px 9px}
+ .four-tiny-room #tiny-device .tiny-actions{padding:0 11px 11px}
+}
+@media(max-width:360px){
+ .four-game-canvas{padding:6px}
+ .four-game-page .mini-heading h1{font-size:17px}
+ .four-game-layout .game-hero h1{font-size:32px}
+ .four-light-city #city-device .city-board{gap:4px}
+ .four-tiny-room #tiny-device .tiny-actions button{padding:8px 5px}
+}
+/* Circuit panel always leaves visible space for the status line and controls. */
+.four-light-city #city-device .city-board{width:min(100%,340px);max-height:340px;flex:1 1 0;min-height:0;aspect-ratio:1}
+.four-light-city #city-device .city-controls{min-height:0}
+@media(max-width:680px){.four-light-city #city-device .city-board{width:min(100%,320px);max-height:320px;flex:1 1 0;min-height:0}}
+
+/* Shared Boring Lab information region – outside the playable game device. */
+.four-game-layout .experiment-information{margin-top:18px;background:#f0f2e9;border:1px solid #d8dfd2;border-radius:14px;padding:22px 23px 24px}
+.experiment-information-head{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:17px}
+.experiment-information-head .mono{color:#81927d}
+.experiment-information-head h2{font-size:23px;font-weight:900;line-height:1.2;letter-spacing:-.04em;margin:7px 0 0;color:#2b3b30}
+.experiment-status{font-size:11px;font-weight:750;color:#587f61;background:#e2ecd5;border:1px solid #cfdebf;padding:7px 10px;border-radius:999px;white-space:nowrap}
+.experiment-information-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.experiment-information-item{padding:13px 14px;background:#fffdf8;border:1px solid #e1e4d9;border-radius:11px}
+.experiment-information-item h3{color:#344937;font-size:13px;margin:0 0 7px;font-weight:850}
+.experiment-information-item p{color:#718074;line-height:1.8;font-size:12px;margin:0}
+.experiment-bottom-nav{display:flex;justify-content:space-between;gap:10px;margin:15px 2px 25px;font-size:12px;color:#607563;font-weight:750}
+.experiment-bottom-nav a{border-bottom:1px solid #c6d4c6;padding:4px 0}
+.experiment-bottom-nav a:hover{color:#293c30}
+.four-game-page .footer-tagline{color:#839083;font-size:11px;margin-top:5px}
+.four-game-page .nav .byline{align-self:flex-end}
+@media(max-width:680px){
+ .four-game-layout .experiment-information{padding:16px 14px;margin-top:13px}
+ .experiment-information-head h2{font-size:21px}
+ .experiment-status{font-size:10px;padding:5px 7px}
+ .experiment-information-grid{grid-template-columns:1fr;gap:8px}
+ .experiment-information-item{padding:11px 12px}
+ .experiment-information-item p{font-size:12px}
+ .experiment-bottom-nav{font-size:11px;margin-bottom:19px}
+ .four-game-page .nav .byline{display:none}
+}

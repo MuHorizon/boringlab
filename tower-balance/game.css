@@ -1,0 +1,7 @@
+#tower-device .mini-top{background:linear-gradient(#faf7f0,#eee8dc)}
+#tower-device .mini-stage{margin:0 10px;border-radius:11px;border:1px solid #cfc5b5;background:#dad4c8;cursor:ew-resize}
+#tower-device .stability{display:flex;align-items:center;gap:8px;margin-top:11px;font-size:10px;color:#8d7c66}
+#tower-device .stability>div{flex:1;background:#ded7c8;height:6px;border-radius:10px;overflow:hidden}#tower-device .stability i{height:100%;width:100%;display:block;background:#8aa18c;border-radius:10px;transition:width .3s}
+#tower-device .stability strong{color:#607a62;min-width:34px;text-align:right}
+#tower-device .mini-stage .mini-badge{background:#f7f1e4dd}
+#tower-device .mini-bottom{background:#f4f0e7}

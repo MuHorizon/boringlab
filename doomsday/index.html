@@ -8,7 +8,7 @@
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="stylesheet" href="/game.css">
 <link rel="stylesheet" href="/legacy-game.css">
-</head>
+<link rel="stylesheet" href="/i18n.css"></head>
 <body class="game-page legacy-page doom-page">
 <div class="topline"><div class="wrap"><span><i class="status-led"></i>EXPERIMENT 001</span><span>NOTHING HAPPENS. VERY SLOWLY.</span></div></div>
 <header class="wrap nav"><a href="/" class="brand"><span class="brand-square"><i></i><i></i><i></i><i></i></span>BORING LAB</a><a href="/" class="pill-link" data-key="back">← 返回实验室</a></header>
@@ -29,7 +29,7 @@
 <div class="legacy-subnav"><span>MADE FOR CURIOSITY, NOT PRODUCTIVITY</span><a href="/">← 所有实验</a></div>
 </main>
 <footer class="wrap footer game-footer legacy-footer"><strong>BORING LAB / EXP 001</strong><div class="footer-links"><a href="/">返回实验室</a><a href="https://muhorizon.org/experiments/" target="_blank" rel="noopener noreferrer">MuHorizon 有趣实验 ↗</a></div></footer>
-<script>
+<script src="/i18n.js"></script><script>
     (function() {
         // ---------- 语言包 ----------
         const translations = {
@@ -141,7 +141,8 @@
         }
 
         // 绑定切换事件
-        toggleBtn.addEventListener('click', toggleLanguage);
+        toggleBtn.addEventListener('click', () => window.BoringI18n.toggle());
+        window.addEventListener('boringlab:language', (e) => updateLanguage(e.detail.language));
 
         // ---------- 核心逻辑 ----------
         function updateUI() {
@@ -216,7 +217,7 @@
 
         // 初始化：默认中文，但按钮显示 English，并且内容已是中文，但我们可以显式设置一次
         // 注意：HTML 中写的是中文，按钮写的是 'English'，所以调用 updateLanguage('zh') 会更新按钮为 'English'，保持 content 不变
-        updateLanguage('zh');
+        updateLanguage(window.BoringI18n.getLanguage());
 
         // 启动加载
         startLoading();

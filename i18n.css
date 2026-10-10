@@ -1,0 +1,5 @@
+/* Shared language switch across all Boring Lab experiments */
+.i18n-toggle{border:1px solid #c6d2c6;background:#e8efd9;color:#2e4733;border-radius:40px;min-width:64px;padding:8px 11px;font-size:11px;font-weight:800;white-space:nowrap;line-height:1.2;cursor:pointer;flex-shrink:0;}
+.i18n-toggle:hover{background:#dce9c9}
+#langToggle{white-space:nowrap}
+@media(max-width:680px){header.nav{gap:7px}header.nav .i18n-toggle{padding:7px 8px;font-size:11px}header.nav .pill-link{font-size:10px;padding:7px 9px}}

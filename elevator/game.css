@@ -1,0 +1,25 @@
+#elevator-device .led{background:#0a1113;border:2px solid #657171;padding:5px 13px;border-radius:5px;text-align:center;min-width:65px;box-shadow:inset 0 0 12px #000}
+#elevator-device .led strong{font:700 29px/1 monospace;color:#f4bb7e;text-shadow:0 0 11px #dc9b5c9d}
+#elevator-device .led small{display:block;font-size:8px;letter-spacing:1px;color:#8c958c}
+.elevator-stage{background:radial-gradient(ellipse at 50% 16%,#526a6c,#172833 65%,#0d1823);margin:0 12px;border:5px ridge #708182;box-shadow:inset 0 0 32px #0009,0 4px 20px #0006;border-radius:9px 9px 3px 3px}
+.elevator-hall{position:absolute;inset:0;overflow:hidden;background:radial-gradient(ellipse at 50% 10%,#626e6b,#1c3037 68%,#0b171e)}
+.elev-perspective{position:absolute;inset:0;background:linear-gradient(#6e777077,#1b2a30aa);clip-path:polygon(0 0,100% 0,70% 73%,30% 73%)}
+.elev-backwall{position:absolute;inset:22% 27% 22%;border:3px solid #74817c;background:linear-gradient(130deg,#465a59,#1d333d);box-shadow:0 0 18px #0009,inset 0 0 30px #06131bd0;display:grid;align-content:25%;justify-items:center}
+.elev-floor-sign{font:750 51px/1.2 ui-monospace,monospace;color:#edcc9199;text-shadow:0 0 15px #f1c98748}
+.elev-wall-note{font:700 9px ui-monospace,monospace;color:#c7cfbd99;letter-spacing:1.5px;white-space:nowrap}
+.elev-floor-ground{position:absolute;inset:55% 0 0;background:repeating-linear-gradient(0deg,#647d8342 0 1px,transparent 1px 40px),linear-gradient(#213844,#0c1d27);clip-path:polygon(30% 0,70% 0,100% 100%,0 100%)}
+.elev-light{position:absolute;top:8%;left:30%;width:40%;height:6px;background:#e6d7b6;box-shadow:0 0 18px 8px #ffe2ad73,0 0 70px 32px #ffe7aa19;transform:perspective(160px) rotateX(20deg)}
+.elev-shadow{position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent 0 3px,#0716201b 3px 4px);box-shadow:inset 0 0 65px #04101ee0}
+.elev-door{position:absolute;top:0;bottom:0;width:50.5%;z-index:3;background:linear-gradient(90deg,#222f37,#87918e 13%,#b6bcb1 35%,#65716f 71%,#26343a 96%);box-shadow:inset 0 0 10px #13242c,0 0 12px #0008;transition:transform .65s cubic-bezier(.23,.68,.25,1)}
+.elev-door:before{content:'';position:absolute;inset:10% 13%;border-left:1px solid #eef0dc60;border-right:1px solid #24363a8c}
+.elev-door:after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent 0 3px,#ffffff13 3px 4px)}
+.elev-door.left{left:0;border-right:2px solid #acb3ad}.elev-door.right{right:0;border-left:2px solid #132329}
+.elevator-stage.open .elev-door.left{transform:translateX(-94%)}.elevator-stage.open .elev-door.right{transform:translateX(94%)}
+.elevator-stage.floor-B .elevator-hall{background:radial-gradient(ellipse at 50% 17%,#48655c,#0d2b2a 71%,#081d21)}
+.elevator-stage.floor-5 .elev-light{background:#f5b09b;box-shadow:0 0 24px #f58d6e9b}
+.elevator-stage.floor-B .elev-light{background:#b1f7ca;box-shadow:0 0 25px #92ffbb9b}
+.elevator-controls{display:flex;align-items:stretch;gap:10px;margin-top:9px}.elevator-floorpad{width:46%;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;background:linear-gradient(140deg,#6f7d7a,#33434a);border:2px solid #89928c;padding:10px;border-radius:11px;box-shadow:inset 0 0 15px #12242fb3}
+.elevator-floorpad button{aspect-ratio:1;border:3px solid #74807c;border-radius:50%;color:#e5eadb;background:radial-gradient(circle at 30% 20%,#82918b,#253942 75%);font:800 15px ui-monospace,monospace;box-shadow:0 2px 6px #0007,inset 0 1px 2px #f2fff280}
+.elevator-floorpad button.selected{border-color:#e6b77b;color:#ffd296;box-shadow:0 0 12px #edb5728a,inset 0 0 9px #e7bc7c57}
+.elevator-floorpad button:disabled{opacity:.5}.elevator-side{flex:1;display:flex;flex-direction:column;gap:8px;min-width:0}.elevator-side button{font-weight:800;border-radius:8px;font-size:11px;border:1px solid #6b8984;background:#304e50;color:#f3f4e9;padding:10px}.elevator-side button.primary{flex:1}.elevator-items{font-size:10px;color:#ecd1a0;line-height:1.55;min-height:23px}
+@media(max-height:680px){.elevator-controls{margin-top:6px}.elevator-floorpad{padding:6px;gap:5px}.elevator-side button{padding:7px}}

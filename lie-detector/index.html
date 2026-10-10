@@ -8,7 +8,7 @@
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="stylesheet" href="/game.css">
 <link rel="stylesheet" href="/legacy-game.css">
-</head>
+<link rel="stylesheet" href="/i18n.css"></head>
 <body class="game-page legacy-page lie-page">
 <div class="topline"><div class="wrap"><span><i class="status-led"></i>EXPERIMENT 002</span><span>YOUR SCROLL WHEEL KNOWS TOO MUCH.</span></div></div>
 <header class="wrap nav"><a href="/" class="brand"><span class="brand-square"><i></i><i></i><i></i><i></i></span>BORING LAB</a><a href="/" class="pill-link" data-key="back">← 返回实验室</a></header>
@@ -26,7 +26,7 @@
 <div class="legacy-subnav"><span>MADE FOR CURIOSITY, NOT PRODUCTIVITY</span><a href="/">← 所有实验</a></div>
 </main>
 <footer class="wrap footer game-footer legacy-footer"><strong>BORING LAB / EXP 002</strong><div class="footer-links"><a href="/">返回实验室</a><a href="https://muhorizon.org/experiments/" target="_blank" rel="noopener noreferrer">MuHorizon 有趣实验 ↗</a></div></footer>
-<script>
+<script src="/i18n.js"></script><script>
     (function() {
         // ---------- 语言包 ----------
         const translations = {
@@ -198,7 +198,8 @@
             updateLanguage(nextLang);
         }
 
-        toggleBtn.addEventListener('click', toggleLanguage);
+        toggleBtn.addEventListener('click', () => window.BoringI18n.toggle());
+        window.addEventListener('boringlab:language', (e) => updateLanguage(e.detail.language));
 
         // ---------- 核心分析逻辑 ----------
         function onWheel(e) {
@@ -324,7 +325,7 @@
 
         // ---------- 初始化 ----------
         // 默认中文，按钮显示 English
-        updateLanguage('zh');
+        updateLanguage(window.BoringI18n.getLanguage());
     })();
 </script>
 </body>

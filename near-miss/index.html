@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f9f8f4">
+<title data-zh="差一点就过了 | Boring Lab" data-en="Almost Made It | Boring Lab">差一点就过了 | Boring Lab</title>
+<meta name="description" content="差一点就过了：无尽金属轨道躲障碍小游戏。手机拖动，电脑用 W/A/D/S 控制，挑战最长距离。">
+<link rel="canonical" href="https://boringlab.muhorizon.org/near-miss/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/site.css">
+<link rel="stylesheet" href="/i18n.css">
+<link rel="stylesheet" href="/game.css">
+<link rel="stylesheet" href="/four-game-pages.css">
+<link rel="stylesheet" href="/near-miss/game.css">
+</head>
+<body class="game-page four-game-page near-miss-page">
+<div class="topline"><div class="wrap"><span><i class="status-led"></i>EXPERIMENT 010</span><span>PRECISION LAB / ENDLESS RUN</span></div></div>
+<header class="wrap nav">
+<a class="brand" href="/"><span class="brand-square"><i></i><i></i><i></i><i></i></span>BORING LAB<small class="byline">BY MUHORIZON</small></a>
+<nav class="navlinks"><a href="/#play" data-zh="现在能玩" data-en="Play now">现在能玩</a><a href="/#new" data-zh="新鲜实验" data-en="New experiments">新鲜实验</a></nav>
+<a href="/" class="pill-link" data-zh="← 返回实验室" data-en="← Back to Lab">← 返回实验室</a>
+</header>
+<main class="wrap game-layout four-game-layout near-miss-layout" id="runMain">
+<section class="game-hero"><div class="mono">EXP — 010 / PRECISION LAB / ENDLESS</div><h1 data-zh="差一点就过了。" data-en="Almost Made It.">差一点就过了。</h1><p data-zh="按住控制钢珠前进，穿过忽宽忽窄的金属轨道，绕开障碍物。没有终点，看看你能走多远。" data-en="Guide a steel ball along an endless metal track. Navigate bends, narrow gaps and obstacles. How far can you go?">按住控制钢珠前进，穿过忽宽忽窄的金属轨道，绕开障碍物。没有终点，看看你能走多远。</p></section>
+<div class="play-card four-game-card near-miss-game-card">
+<div class="play-head"><div class="mono">PRECISION LAB / ENDLESS RUN</div><div class="play-head-right"><span class="stat-chip" data-zh="∞ 无尽轨道 · 精密避障" data-en="∞ ENDLESS TRACK · PRECISION">∞ 无尽轨道 · 精密避障</span></div></div>
+<div class="four-game-canvas near-miss-game-canvas"><div aria-label="差一点就过了，无尽轨道挑战" class="run-device" id="runDevice" tabindex="0">
+<header class="run-top">
+<div class="run-overline"><span>PRECISION LAB / ENDLESS RUN</span><span class="endless-label" data-en="∞ ENDLESS" data-zh="∞ 无尽挑战">∞ 无尽挑战</span></div>
+<div class="run-heading"><h1 data-en="Almost Made It" data-zh="差一点就过了">差一点就过了</h1><div class="run-distance"><strong id="distance">0</strong><span>m</span></div></div>
+<div class="run-meta"><span data-en="DISTANCE TRAVELED" data-zh="已前进距离">已前进距离</span><span><span data-en="BEST" data-zh="历史最佳">历史最佳</span> <strong id="best">0 m</strong></span></div>
+</header>
+<div class="run-stage" id="runStage">
+<canvas aria-label="钢珠轨道。按住或 W 前进，左右拖动或 A/D 转向，S 刹车" height="660" id="runCanvas" width="380"></canvas>
+<div class="run-zone" id="zone">01 · 工业直道</div>
+<div class="run-danger" data-en="DANGER · COLLISION" data-zh="危险 · 接近障碍" id="danger">危险 · 接近障碍</div>
+<div class="run-guide" data-en="HOLD TO MOVE · DRAG TO STEER" data-zh="按住前进 · 左右拖动转向" id="guide">按住前进 · 左右拖动转向</div>
+<div aria-live="polite" class="run-milestone" id="milestone"></div>
+<div class="run-overlay" hidden="" id="overlay">
+<div class="run-modal">
+<div class="result-kicker">PRECISION RUN / RESULT</div>
+<h2 id="resultTitle">就差一点！</h2>
+<div class="result-distance"><strong id="resultDistance">0</strong> <small>m</small></div>
+<p id="resultReason">钢珠撞上了障碍物。</p>
+<div class="result-grid">
+<div><strong id="resultBest">0 m</strong><small data-en="PERSONAL BEST" data-zh="最佳距离">最佳距离</small></div>
+<div><strong id="resultTime">0.0 s</strong><small data-en="TIME SURVIVED" data-zh="坚持时间">坚持时间</small></div>
+</div>
+<button class="result-retry" data-en="↻ TRY AGAIN" data-zh="↻ 再试一次" id="retry" type="button">↻ 再试一次</button>
+</div>
+</div>
+</div>
+<div class="run-footer">
+<div class="run-state"><strong id="status">钢珠已就位</strong><span id="detail">轨道没有尽头，小心障碍物</span></div>
+<button class="restart" data-en="↻ RESTART" data-zh="↻ 重新开始" id="restart" type="button">↻ 重新开始</button>
+</div>
+<div aria-label="键盘控制提示" class="run-keys"><span><kbd>W</kbd> <span data-en="GO" data-zh="前进">前进</span></span><span><kbd>A</kbd><kbd>D</kbd> <span data-en="STEER" data-zh="转向">转向</span></span><span><kbd>S</kbd> <span data-en="BRAKE" data-zh="刹车">刹车</span></span></div>
+</div></div>
+</div>
+<section class="experiment-information" aria-label="Game information">
+<div class="experiment-information-head"><div><div class="mono">ABOUT THIS EXPERIMENT / 010</div><h2 data-zh="玩法与信息" data-en="How to play">玩法与信息</h2></div><span class="experiment-status" data-zh="● 无需安装 · 打开就玩" data-en="● INSTANT PLAY · NO INSTALL">● 无需安装 · 打开就玩</span></div>
+<div class="experiment-information-grid">
+<div class="experiment-information-item"><h3 data-zh="怎么玩" data-en="Controls">怎么玩</h3><p data-zh="手机按住前进、左右拖动转向；电脑使用 W 前进、A / D 转向、S 刹车，也支持方向键。" data-en="On mobile, hold to accelerate and drag to steer. On desktop, use W to move, A / D to steer and S to brake. Arrow keys also work.">手机按住前进、左右拖动转向；电脑使用 W 前进、A / D 转向、S 刹车，也支持方向键。</p></div>
+<div class="experiment-information-item"><h3 data-zh="挑战目标" data-en="Your goal">挑战目标</h3><p data-zh="轨道没有终点，宽度和弯道持续变化，还会出现不同障碍。尽量避免碰壁，刷新最远距离。" data-en="There is no finish line. Track widths, turns and hazards keep changing. Avoid collisions and beat your distance record.">轨道没有终点，宽度和弯道持续变化，还会出现不同障碍。尽量避免碰壁，刷新最远距离。</p></div>
+<div class="experiment-information-item"><h3 data-zh="本地记录" data-en="Local progress">本地记录</h3><p data-zh="最佳距离保存在当前浏览器中。游戏进行中实时显示已前进米数，不使用循环进度条。" data-en="Your best distance stays in this browser. The current run shows meters traveled, with no looping progress bar.">最佳距离保存在当前浏览器中。游戏进行中实时显示已前进米数，不使用循环进度条。</p></div>
+</div></section>
+<nav class="experiment-bottom-nav" aria-label="More experiments"><a href="/" data-zh="← 返回所有实验" data-en="← All experiments">← 返回所有实验</a><a href="/tower-balance/" data-zh="体验下一个小游戏 →" data-en="Try the next game →">体验下一个小游戏 →</a></nav>
+</main>
+<footer class="wrap footer game-footer"><div><strong>BORING LAB / EXP 010</strong><div class="footer-tagline" data-zh="一些不必要，但有趣的东西。" data-en="Some wonderfully unnecessary things.">一些不必要，但有趣的东西。</div></div><nav class="footer-links"><a href="/" data-zh="所有实验" data-en="All experiments">所有实验</a><a href="https://muhorizon.org/experiments/" target="_blank" rel="noopener" data-zh="有趣实验 ↗" data-en="Fun experiments ↗">有趣实验 ↗</a><a href="https://muhorizon.org/" target="_blank" rel="noopener">MuHorizon ↗</a></nav></footer>
+<script src="/i18n.js"></script><script src="/near-miss/game.js" defer></script>
+</body>
+</html>
